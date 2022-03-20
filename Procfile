@@ -1,4 +1,4 @@
-web: gunicorn clicoh_api.wsgi
+web: gunicorn clicoh_api.clicoh_api.wsgi
 
 
 
