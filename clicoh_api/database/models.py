@@ -73,22 +73,11 @@ class Order(models.Model):
         total   = sum([item.get_total_product for item in details])
         return  total  
 
-        
-
     @property
     def get_total_usd(self):   
        
         return self.get_total * dolar_blue 
-        
-        
-
-    #     details = self.orderdetail_set.all()
-    #     total   = sum([item.get_total_product for item in details]) 
-    #     total   =  Order.get_total * float(dolar_blue)     
-
-    #     print(total)   
-        
-    #     return  total     
+ 
 
 
 class OrderDetail(models.Model): 

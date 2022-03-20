@@ -13,7 +13,7 @@ SECRET_KEY = 'django-insecure-e7_dzve-m(hjvr0sfoj&!bh18ufu--ic!77s#y_b9k*2*zlnsk
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['clicoh-api.herokuapp.com','127.0.0.1']
 
 
 # Application definition
