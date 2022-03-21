@@ -23,30 +23,6 @@ class OrderTools:
 
 class OrderDetailsTools:
 
-    def validate_cuantity(data):
-
-        # Verifica que la cantidad sea un numero valido.
-
-        if int(data['cuantity']) == 0 or int(data['cuantity']) < 0 or data['cuantity'] == '':
-
-            raise serializers.ValidationError({'cuantity':'Informacion Invalida.'})
-
-
-    def product_in_order(data):
-
-        # Verifica que no se repitan productos en el mismo pedido.
-
-        order   = data['order']
-        product = data['product']
-
-        if OrderDetail.objects.filter(order=order,product=product).exists():
-
-            data   = 'Ya se solicito este producto en la orden.'            
-            return Response(data, status = status.HTTP_400_BAD_REQUEST)
-
-        else: return Response(status.HTTP_200_OK)
-
-
     def stock_control(data):
 
         # Verifica si hay stock disponible.
@@ -72,21 +48,14 @@ class OrderDetailsTools:
     def update_orderdetails(instance,data): 
        
         # Se retornara la cantidad solicitada al stock disponible del producto. 
-        # Una vez hecho esto, se enviara la nueva cantidad solicitada.
-          
+        # Una vez hecho esto, se enviara la nueva cantidad solicitada.          
 
         OrderDetailsTools.return_stock(instance) 
 
         # Verifica si se solicito el mismo producto.
-        if int(instance.product.id) != int(data['product']):  
+        if int(instance.product.id) != int(data['product']):              
             
-            product_in_order = OrderDetailsTools.product_in_order(data)
-
-            if product_in_order.status_code == 400 :
-                 return product_in_order
-
-            else : 
-                return OrderDetailsTools.stock_control({'product':data['product'],'cuantity':data['cuantity']})  
+            return OrderDetailsTools.stock_control({'product':data['product'],'cuantity':data['cuantity']})  
         
         else:        
             return OrderDetailsTools.stock_control({'product':instance.product.id,'cuantity':data['cuantity']})         

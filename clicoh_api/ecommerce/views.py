@@ -9,7 +9,8 @@ from database.models import *
 from .serializers import *
 from .utils import *
 
-class BaseModelViewSet(ModelViewSet):   
+class BaseModelViewSet(ModelViewSet): 
+    pass  
     
     permission_classes     = [IsAuthenticated]
 
@@ -68,15 +69,6 @@ class OrderDetailView(BaseModelViewSet):
 
         data    = validated_data.data
         
-        # Verifica que la cantidad sea un numero valido.
-        OrderDetailsTools.validate_cuantity(data)
-        
-        
-        # Verifica que no se repitan productos en el mismo pedido.
-        product_in_order = OrderDetailsTools.product_in_order(data)
-        if product_in_order.status_code == 400: return product_in_order 
-
-        
         # Verifica si hay stock disponible.
         stock_control = OrderDetailsTools.stock_control(data) 
 
@@ -97,7 +89,7 @@ class OrderDetailView(BaseModelViewSet):
         data     = request.data 
 
         # Verifica que la cantidad sea un numero valido.
-        OrderDetailsTools.validate_cuantity(data)
+        # OrderDetailsTools.validate_cuantity(data)
         
         update_product = OrderDetailsTools.update_orderdetails(instance,data)
 
