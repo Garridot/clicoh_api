@@ -9,8 +9,7 @@ from database.models import *
 from .serializers import *
 from .utils import *
 
-class BaseModelViewSet(ModelViewSet): 
-    pass  
+class BaseModelViewSet(ModelViewSet):    
     
     permission_classes     = [IsAuthenticated]
 
